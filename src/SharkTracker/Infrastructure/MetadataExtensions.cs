@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Reflection;
 
-namespace ChangeTracker.Infrastructure
+namespace SharkTracker.Infrastructure
 {
     internal static class MetadataExtensions
     {

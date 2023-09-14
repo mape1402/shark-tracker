@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ChangeTracker\ChangeTracker.csproj" />
+    <ProjectReference Include="..\..\src\SharkTracker\SharkTracker.csproj" />
   </ItemGroup>
 
 </Project>

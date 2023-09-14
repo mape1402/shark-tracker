@@ -1,6 +1,6 @@
-﻿using ChangeTracker.Metadata;
+﻿using SharkTracker.Metadata;
 
-namespace ChangeTracker.Exceptions
+namespace SharkTracker.Exceptions
 {
 
 	/// <summary>

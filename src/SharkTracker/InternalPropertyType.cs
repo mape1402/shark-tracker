@@ -1,4 +1,4 @@
-﻿namespace ChangeTracker
+﻿namespace SharkTracker
 {
     /// <summary>
     /// Indicates the category of property type.

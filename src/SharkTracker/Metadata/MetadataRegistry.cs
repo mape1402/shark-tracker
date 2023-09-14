@@ -1,8 +1,8 @@
-﻿using ChangeTracker.Exceptions;
-using ChangeTracker.Infrastructure;
+﻿using SharkTracker.Exceptions;
+using SharkTracker.Infrastructure;
 using System.Collections.Concurrent;
 
-namespace ChangeTracker.Metadata
+namespace SharkTracker.Metadata
 {
     /// <summary>
     /// Class <see cref="MetadataRegistry"/> manages all metadata for tracking.

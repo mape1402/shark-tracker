@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace ChangeTracker.Infrastructure
+namespace SharkTracker.Infrastructure
 {
     /// <summary>
     /// Class <see cref="PropertyTypeMetadata"/> represents the metadata of a property of object.

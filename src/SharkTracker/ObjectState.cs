@@ -1,4 +1,4 @@
-﻿namespace ChangeTracker
+﻿namespace SharkTracker
 {
     /// <summary>
     /// Represents the object state into change tracker.

@@ -1,8 +1,8 @@
-﻿using ChangeTracker.Exceptions;
-using ChangeTracker.Metadata;
-using ChangeTracker.Tests.TestObjects;
+﻿using SharkTracker.Exceptions;
+using SharkTracker.Metadata;
+using SharkTracker.Tests.TestObjects;
 
-namespace ChangeTracker.Tests.Metadata
+namespace SharkTracker.Tests.Metadata
 {
     public sealed class MetadataRegistryTest
     {

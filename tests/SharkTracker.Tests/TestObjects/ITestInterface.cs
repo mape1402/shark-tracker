@@ -1,4 +1,4 @@
-﻿namespace ChangeTracker.Tests.TestObjects
+﻿namespace SharkTracker.Tests.TestObjects
 {
     public interface ITestInterface
     {

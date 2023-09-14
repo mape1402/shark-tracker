@@ -1,5 +1,5 @@
 ﻿
-namespace ChangeTracker.Infrastructure
+namespace SharkTracker.Infrastructure
 {
     /// <summary>
     /// Class <see cref="ObjectTypeMetadata"/> represents the metadata of object type.

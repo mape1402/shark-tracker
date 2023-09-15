@@ -38,5 +38,19 @@ namespace SharkTracker.Metadata
         /// <returns>Returns an instance of <see cref="ObjectTypeMetadata"/>.</returns>
         /// <exception cref="ObjectTypeMetadataIsNotRegisteredException">Throws when object type is missing into metadata container.</exception>
         ObjectTypeMetadata Get(Type type);
+
+        /// <summary>
+        /// Gets a value that indicates if the type has been registered in the current <see cref="IMetadataRegistry"/> instance.
+        /// </summary>
+        /// <typeparam name="T">Object Type.</typeparam>
+        /// <returns>Returns a <see langword="true"/> value if type has been registered, otherwise, returns <see langword="false"/>.</returns>
+        bool IsRegistered<T>() where T : class;
+
+        /// <summary>
+        /// Gets a value that indicates if the type has been registered in the current <see cref="IMetadataRegistry"/> instance.
+        /// </summary>
+        /// <param name="type">Object Type.</param>
+        /// <returns>Returns a <see langword="true"/> value if type has been registered, otherwise, returns <see langword="false"/>.</returns>
+        bool IsRegistered(Type type);
     }
 }

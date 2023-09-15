@@ -200,6 +200,43 @@ namespace SharkTracker.Tests.Metadata
             Assert.IsType(exceptionType, ex);
         }
 
+        [Fact(DisplayName = "Check if Type is registered")]
+        public void IsRegistered()
+        {
+            //Arrange
+            var registry = GetMetadataRegistry();
+
+            //Act
+            var exists = registry.IsRegistered<TestComplexObject>();
+            var doesntExist = registry.IsRegistered<TestMixedObject>();
+
+            //Assert
+            Assert.True(exists);
+            Assert.False(doesntExist);
+        }
+
+        [Fact(DisplayName = "Check if registry to destructure properties successfuly")]
+        public void DestrucureProperties()
+        {
+            //Arrange
+            var registry = new MetadataRegistry();
+            var typeNested = typeof(NestedObject);
+            var typeCollection = typeof(TestCollectionObject);
+            var typePrimitive = typeof(TestPrimitivesObject);
+
+            //Act
+            registry.AddType<TestMixedObject>();
+            
+            var metadataPrimitive = registry.Get<TestPrimitivesObject>();
+            var metadataCollection = registry.Get<TestCollectionObject>();
+            var metadataNested = registry.Get<NestedObject>();
+
+            //Assert
+            Assert.Equal(typeNested.Name, metadataNested.Name);
+            Assert.Equal(typeCollection.Name, metadataCollection.Name);
+            Assert.Equal(typePrimitive.Name, metadataPrimitive.Name);
+        }
+
         private MetadataRegistry GetMetadataRegistry()
         {
             var registry = new MetadataRegistry();

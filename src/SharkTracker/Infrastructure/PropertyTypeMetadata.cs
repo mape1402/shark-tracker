@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using SharkTracker.Metadata;
+using System.Reflection;
 
 namespace SharkTracker.Infrastructure
 {
@@ -11,18 +12,28 @@ namespace SharkTracker.Infrastructure
         /// Initializes a new instance of <see cref="PropertyTypeMetadata"/> class.
         /// </summary>
         /// <param name="accessor">Property accessor.</param>
-        public PropertyTypeMetadata(PropertyInfo accessor)
+        /// <param name="metadataRegistry">Current <see cref="IMetadataRegistry"/> instance.</param>
+        public PropertyTypeMetadata(PropertyInfo accessor, IMetadataRegistry metadataRegistry)
         {
-            Accessor = accessor;
-            PropertyType = accessor.PropertyType;
+            Accessor = accessor ?? throw new ArgumentNullException(nameof(accessor));
+            MetadataRegistry = metadataRegistry ?? throw new ArgumentNullException(nameof(metadataRegistry));
+            ClrType = accessor.PropertyType;
             Name = accessor.Name;
             InternalType = accessor.GetInternalPropertyType();
+
+            if (InternalType.ShouldDestructureProperty())
+                this.Destructure(MetadataRegistry);
         }
+
+        /// <summary>
+        /// Gets the current <see cref="IMetadataRegistry"/> instance.
+        /// </summary>
+        public IMetadataRegistry MetadataRegistry { get; }
 
         /// <summary>
         /// Gets a type of property.
         /// </summary>
-        public Type PropertyType { get; }
+        public Type ClrType { get; }
 
         /// <summary>
         /// Gets the property accessor.

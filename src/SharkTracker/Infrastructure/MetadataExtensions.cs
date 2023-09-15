@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SharkTracker.Metadata;
+using System.Collections;
 using System.Reflection;
 
 namespace SharkTracker.Infrastructure
@@ -12,7 +13,7 @@ namespace SharkTracker.Infrastructure
             if(type.IsPrimitive())
                 return InternalPropertyType.Primitive;
 
-            if (type.IsArray || typeof(IEnumerable).IsAssignableFrom(type))
+            if (type.IsCollection())
                 return InternalPropertyType.Collection;
 
             return InternalPropertyType.Complex;
@@ -43,7 +44,57 @@ namespace SharkTracker.Infrastructure
             return types.Contains(type) || type.IsPrimitive;
         }
 
-        public static IEnumerable<PropertyTypeMetadata> ToProperties(this Type type)
-            => type.GetProperties().Select(p => new PropertyTypeMetadata(p));
+        public static bool IsCollection(this Type type)
+            => type.IsArray || typeof(IEnumerable).IsAssignableFrom(type);
+
+        public static IEnumerable<PropertyTypeMetadata> ToProperties(this Type type, IMetadataRegistry metadataRegistry)
+        {
+            var props = new List<PropertyTypeMetadata>();
+
+            foreach (var p in type.GetProperties())
+                props.Add(new PropertyTypeMetadata(p, metadataRegistry));
+
+            return props;
+        }
+
+        public static bool ShouldDestructureProperty(this InternalPropertyType type)
+            => type == InternalPropertyType.Complex || type == InternalPropertyType.Collection;
+
+        public static void Destructure(this PropertyTypeMetadata propertyMetadata, IMetadataRegistry metadataRegistry)
+        {
+            if(propertyMetadata.InternalType == InternalPropertyType.Complex)
+            {
+                metadataRegistry.AddType(propertyMetadata.ClrType);
+                return;
+            }
+
+            propertyMetadata.ClrType.InmersiveRegister(metadataRegistry);
+        }
+
+        private static Type InternalGetElementType(this Type type)
+        {
+            var elementType = type.GetElementType();
+
+            if(elementType != null)
+                return elementType;
+
+            return type.GenericTypeArguments.FirstOrDefault();
+        }
+
+        private static void InmersiveRegister(this Type type, IMetadataRegistry metadataRegistry)
+        {
+            var elementType = type.InternalGetElementType();
+
+            if (elementType == null)
+                return;
+
+            if (elementType.IsPrimitive())
+                return;
+
+            if (elementType.IsCollection())
+                elementType.InmersiveRegister(metadataRegistry);
+
+            metadataRegistry.AddType(elementType);
+        }
     }
 }

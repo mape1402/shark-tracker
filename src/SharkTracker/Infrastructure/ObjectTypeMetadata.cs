@@ -1,4 +1,6 @@
 ﻿
+using SharkTracker.Metadata;
+
 namespace SharkTracker.Infrastructure
 {
     /// <summary>
@@ -10,12 +12,19 @@ namespace SharkTracker.Infrastructure
         /// Initializes a new instance of <see cref="ObjectTypeMetadata"/> class. 
         /// </summary>
         /// <param name="clrType">Clr Type of object.</param>
-        public ObjectTypeMetadata(Type clrType)
+        /// <param name="metadataRegistry">Current <see cref="IMetadataRegistry"/> instance.</param>
+        public ObjectTypeMetadata(Type clrType, IMetadataRegistry metadataRegistry)
         {
             ClrType = clrType ?? throw new ArgumentNullException(nameof(clrType));
+            MetadataRegistry = metadataRegistry ?? throw new ArgumentNullException(nameof(metadataRegistry));
             Name = ClrType.Name;
-            Properties = ClrType.ToProperties();
+            Properties = ClrType.ToProperties(metadataRegistry);
         }
+
+        /// <summary>
+        /// Gets the current <see cref="IMetadataRegistry"/> instance.
+        /// </summary>
+        public IMetadataRegistry MetadataRegistry { get; }
 
         /// <summary>
         /// Gets the Clr Type of object.

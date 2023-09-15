@@ -29,7 +29,10 @@ namespace SharkTracker.Metadata
             if (!type.IsClass || type.IsAbstract)
                 throw new ArgumentException($"'{type.Name}' type cannot be tracked.");
 
-            var objectMetadata = new ObjectTypeMetadata(type);
+            if (IsRegistered(type))
+                return Get(type);
+
+            var objectMetadata = new ObjectTypeMetadata(type, this);
             _metadata.TryAdd(type, objectMetadata);
 
             return objectMetadata;
@@ -47,5 +50,13 @@ namespace SharkTracker.Metadata
 
             throw new ObjectTypeMetadataIsNotRegisteredException(type);
         }
+
+        /// <inheritdoc/>
+        public bool IsRegistered<T>() where T : class
+            => IsRegistered(typeof(T));
+
+        /// <inheritdoc/>
+        public bool IsRegistered(Type type)
+            => _metadata.ContainsKey(type);
     }
 }

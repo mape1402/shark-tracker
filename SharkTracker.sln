@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{52FF039F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharkTracker", "src\SharkTracker\SharkTracker.csproj", "{F28E4865-C0D2-46E6-AD25-F18DD55969FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChangeTracker.Tests", "tests\SharkTracker.Tests\ChangeTracker.Tests.csproj", "{E39E3226-E005-4505-979D-1030EF64BD4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharkTracker.Tests", "tests\SharkTracker.Tests\SharkTracker.Tests.csproj", "{E39E3226-E005-4505-979D-1030EF64BD4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
